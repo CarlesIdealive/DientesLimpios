@@ -1,5 +1,6 @@
 ﻿using DientesLimpios.Dominio.Enums;
 using DientesLimpios.Dominio.Excepciones;
+using DientesLimpios.Dominio.ObjetosDeValor;
 
 namespace DientesLimpios.Dominio.Entidades;
 
@@ -10,20 +11,15 @@ public class Cita
     public Guid DentistaId { get; private set; }
     public Guid ConsultorioId { get; private set; }
     public EstadoCita EstadoCita { get; private set; }
-    public DateTime FechaInicio { get; private set; }
-    public DateTime FechaFin { get; private set; }
+    public IntervaloDeTiempo IntervaloDeTiempo { get; private set; }
     public Paciente? Paciente { get; private set; }
     public Dentista? Dentista { get; private set; }
     public Consultorio? Consultorio { get; private set; }
 
 
-    public Cita(Guid pacienteId, Guid dentistaId, Guid consultorioId, DateTime fechaInicio, DateTime fechaFin)
+    public Cita(Guid pacienteId, Guid dentistaId, Guid consultorioId, IntervaloDeTiempo intervaloDeTiempo)
     {
-        if (fechaFin < fechaInicio)
-        {
-            throw new ArgumentException("La fecha de fin debe ser posterior a la fecha de inicio.");
-        }
-        if (fechaInicio < DateTime.Now)
+        if (intervaloDeTiempo.Inicio < DateTime.Now)
         {
             throw new ArgumentException("La fecha de inicio no puede ser en el pasado.");
         }
@@ -32,9 +28,7 @@ public class Cita
         PacienteId = pacienteId;
         DentistaId = dentistaId;
         ConsultorioId = consultorioId;
-        FechaFin = fechaFin;
-        FechaInicio = fechaInicio;
-        EstadoCita = EstadoCita.Programada;
+        IntervaloDeTiempo = intervaloDeTiempo;
     }
 
 
