@@ -13,11 +13,12 @@ public record Email
         {
             throw new ExcepcionReglaDeNegocio($"El {nameof(email)} del paciente no puede estar vacío.");
         }
+        email = email.Trim();
         if (!email.Contains("@"))
         {
             throw new ExcepcionReglaDeNegocio($"El {nameof(email)} del paciente no es válido.");
         }
-
+        Valor = email;
     }
 
 
