@@ -1,4 +1,6 @@
-﻿namespace DientesLimpios.Dominio.ObjetosDeValor;
+﻿using DientesLimpios.Dominio.Excepciones;
+
+namespace DientesLimpios.Dominio.ObjetosDeValor;
 
 public record IntervaloDeTiempo
 {
@@ -8,9 +10,7 @@ public record IntervaloDeTiempo
     public IntervaloDeTiempo(DateTime inicio, DateTime fin)
     {
         if (fin < inicio)
-        {
-            throw new ArgumentException("La fecha de fin debe ser posterior a la fecha de inicio.");
-        }
+            throw new ExcepcionReglaDeNegocio("La fecha de fin debe ser posterior a la fecha de inicio.");
 
         Inicio = inicio;
         Fin = fin;
