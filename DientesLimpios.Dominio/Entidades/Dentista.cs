@@ -7,17 +7,18 @@ public class Dentista
 {
     public Guid Id { get; private set; }
     public string Nombre { get; private set; } = null!;
-    public Email Email { get; private set; } = null!;
+    public Email Email { get; private set; }
 
-    public Dentista(string nombre, Email email)
+    public Dentista(string nombre, string email)
     {
         if (string.IsNullOrWhiteSpace(nombre))
         {
             throw new ExcepcionReglaDeNegocio($"El {nameof(nombre)} del consultorio no puede estar vacío.");
         }
+        
 
         Id = Guid.CreateVersion7();
         Nombre = nombre;
-        Email = email;
+        Email = new Email(email);
     }
 }

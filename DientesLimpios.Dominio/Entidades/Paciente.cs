@@ -10,7 +10,7 @@ public class Paciente
     public string Nombre { get; private set; } = null!;
     public Email Email { get; private set; } = null!;
 
-    public Paciente(string nombre, Email email)
+    public Paciente(string nombre, string email)
     {
         
         if (string.IsNullOrWhiteSpace(nombre))
@@ -20,7 +20,7 @@ public class Paciente
 
         Id = Guid.CreateVersion7();
         Nombre = nombre;
-        Email = email;
+        Email = new Email(email);
     }
 
 }

@@ -19,7 +19,7 @@ public class Cita
 
     public Cita(Guid pacienteId, Guid dentistaId, Guid consultorioId, IntervaloDeTiempo intervaloDeTiempo)
     {
-        if (intervaloDeTiempo.Inicio < DateTime.Now)
+        if (intervaloDeTiempo.Inicio < DateTime.UtcNow)
         {
             throw new ArgumentException("La fecha de inicio no puede ser en el pasado.");
         }
