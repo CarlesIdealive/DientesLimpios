@@ -1,4 +1,6 @@
 ﻿
+using DientesLimpios.Aplicacion.Excepciones;
+
 namespace DientesLimpios.Aplicacion.Utilidades.Mediador;
 
 public class MediadorSimple : IMediator
@@ -20,7 +22,7 @@ public class MediadorSimple : IMediator
 
         if (casoDeUso == null)
         {
-            throw new InvalidOperationException($"No se encontró un manejador para la solicitud de tipo {request.GetType().Name}");
+            throw new ExcepcionDeMediador($"No se encontró un manejador para la solicitud de tipo {request.GetType().Name}");
         }
 
         var metodoHandle = tipoCasoDeUso.GetMethod("Handle");
