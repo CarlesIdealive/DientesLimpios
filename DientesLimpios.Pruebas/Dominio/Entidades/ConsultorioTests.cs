@@ -7,10 +7,8 @@ namespace DientesLimpios.Pruebas.Dominio.Entidades;
 public class ConsultorioTests
 {
     [TestMethod]
-    [ExpectedException (typeof (ExcepcionReglaDeNegocio))]
-    public void Constructor_NombreNulo_LanzaExcepcion ()
+    public void Constructor_NombreNulo_LanzaExcepcion()
     {
-        new Consultorio(null!);
+        Assert.ThrowsExactly<ExcepcionReglaDeNegocio>(() => new Consultorio(null!));
     }
-
 }

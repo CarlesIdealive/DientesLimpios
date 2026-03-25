@@ -9,24 +9,21 @@ public class EmailTests
 {
 
     [TestMethod]
-    [ExpectedException(typeof(ExcepcionReglaDeNegocio))]
     public void Constructor_EmailNulo_LanzaExcepcion()
     {
-        new Email(null!);
+        Assert.ThrowsExactly<ExcepcionReglaDeNegocio>(() => new Email(null!));
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ExcepcionReglaDeNegocio))]
     public void Constructor_EmailVacio_LanzaExcepcion()
     {
-        new Email(string.Empty);
+        Assert.ThrowsExactly<ExcepcionReglaDeNegocio>(() => new Email(string.Empty));
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ExcepcionReglaDeNegocio))]
     public void Constructor_EmailSinArroba_LanzaExcepcion()
     {
-        new Email("invalidemail.com");
+        Assert.ThrowsExactly<ExcepcionReglaDeNegocio>(() => new Email("invalidemail.com"));
     }
 
     [TestMethod]

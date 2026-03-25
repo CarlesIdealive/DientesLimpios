@@ -12,17 +12,15 @@ namespace DientesLimpios.Pruebas.Dominio.Entidades;
 public class PacienteTests
 {
     [TestMethod]
-    [ExpectedException(typeof(ExcepcionReglaDeNegocio))]
     public void CrearPaciente_ConNombreValido_YEmailNoValido_LanzaExcepcion()
     {
-        new Paciente("Juan Perez", "notvalid.com");
+        Assert.ThrowsExactly<ExcepcionReglaDeNegocio>(() => new Paciente("Juan Perez", "notvalid.com"));
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ExcepcionReglaDeNegocio))]
     public void CrearPaciente_ConNombreVacio_LanzaExcepcion()
     {
-        new Paciente(null!, "valid@test.com");
+        Assert.ThrowsExactly<ExcepcionReglaDeNegocio>(() => new Paciente(null!, "valid@test.com"));
     }
 
 

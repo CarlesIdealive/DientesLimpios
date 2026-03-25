@@ -13,7 +13,6 @@ namespace DientesLimpios.Pruebas.Aplicacion.CasosDeUso.Consultorios;
 public class CasoDeUsoCrearConsultorioTests
 {
     private IRepositorioConsultorios repositorio;
-    private IValidator<ComandoCrearConsultorio> validador;
     private IUnidadDeTrabajo unidadDeTrabajo;
     private CasoDeUsoCrearConsultorio casoDeUso;
 
@@ -22,10 +21,9 @@ public class CasoDeUsoCrearConsultorioTests
     public void Setup()
     {
         repositorio = Substitute.For<IRepositorioConsultorios>();
-        validador = Substitute.For<IValidator<ComandoCrearConsultorio>>();
         unidadDeTrabajo = Substitute.For<IUnidadDeTrabajo>();
 
-        casoDeUso = new CasoDeUsoCrearConsultorio(repositorio,unidadDeTrabajo,validador);
+        casoDeUso = new CasoDeUsoCrearConsultorio(repositorio,unidadDeTrabajo);
     }
 
 
@@ -34,13 +32,11 @@ public class CasoDeUsoCrearConsultorioTests
     {
         //1.Preparamos 
         var comando = new ComandoCrearConsultorio { Nombre = "Consultorio A" };
-        validador.ValidateAsync(comando).Returns(new ValidationResult());
         var consultorioCreado = new Consultorio(comando.Nombre);
         repositorio.Agregar(Arg.Any<Consultorio>()).Returns(consultorioCreado);
         //3.Ejecutamos la prueba
         var resultado = casoDeUso.Handle(comando);
         //4.Validamos
-        await validador.Received(1).ValidateAsync(comando);
         await repositorio.Received(1).Agregar(Arg.Any<Consultorio>());
         await unidadDeTrabajo.Received(1).Persistir();
         Assert.AreNotEqual(Guid.Empty, await resultado);
@@ -55,7 +51,6 @@ public class CasoDeUsoCrearConsultorioTests
         {
             new ValidationFailure("Nombre", "El nombre no puede estar vacío")
         };
-        validador.ValidateAsync(comando).Returns(new ValidationResult(errores));
         //2.Ejecutamos la prueba
         //3.Validamos
         await Assert.ThrowsExceptionAsync<ExcepcionDeValidacion>(async () =>
