@@ -1,5 +1,6 @@
 ﻿
 using DientesLimpios.Aplicacion.Excepciones;
+using FluentValidation;
 
 namespace DientesLimpios.Aplicacion.Utilidades.Mediador;
 
@@ -15,6 +16,24 @@ public class MediadorSimple : IMediator
 
     public async Task<TResponse> Send<TResponse>(IRequest<TResponse> request)
     {
+        var tipoValidador = typeof(IValidator<>).MakeGenericType(request.GetType());
+        var validador = serviceProvider.GetService(tipoValidador) as IValidator;
+        if (validador != null)
+        {
+           var metodoValidar = tipoValidador.GetMethod("ValidateAsync");
+           var tareaValidar = (Task)metodoValidar!.Invoke(validador, 
+               new object[] { request, CancellationToken.None })!;
+            await tareaValidar.ConfigureAwait(false);
+            var resultado = tareaValidar.GetType().GetProperty("Result");
+            var validacionResultado = resultado!.GetValue(tareaValidar) as FluentValidation.Results.ValidationResult;
+            if (!validacionResultado!.IsValid)
+            {
+                throw new ExcepcionDeValidacion(validacionResultado);
+            }
+        }
+
+
+
         var tipoCasoDeUso = typeof(IRequestHandler<,>)
             .MakeGenericType(request.GetType(), typeof(TResponse));
 
