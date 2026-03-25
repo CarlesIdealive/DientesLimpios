@@ -3,7 +3,8 @@ using DientesLimpios.Aplicacion.Contratos.Persistencia;
 using DientesLimpios.Aplicacion.Contratos.Repositorios;
 using DientesLimpios.Aplicacion.Excepciones;
 using DientesLimpios.Dominio.Entidades;
-using FluentValidation;
+using DientesLimpios.Dominio.Excepciones;
+using DientesLimpios.Dominio.ObjetosDeValor;
 using FluentValidation.Results;
 using NSubstitute;
 
@@ -25,6 +26,7 @@ public class CasoDeUsoCrearConsultorioTests
 
         casoDeUso = new CasoDeUsoCrearConsultorio(repositorio,unidadDeTrabajo);
     }
+
 
 
     [TestMethod]
@@ -53,7 +55,7 @@ public class CasoDeUsoCrearConsultorioTests
         };
         //2.Ejecutamos la prueba
         //3.Validamos
-        await Assert.ThrowsExceptionAsync<ExcepcionDeValidacion>(async () =>
+        Assert.ThrowsExactly<ExcepcionReglaDeNegocio>(async () =>
         {
             await casoDeUso.Handle(comando);
         });
