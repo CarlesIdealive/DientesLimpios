@@ -6,6 +6,6 @@ public interface IRepositorio<T> where T : class
     Task<IEnumerable<T>> ObtenerTodos();
     Task<T> Agregar(T entidad);
     Task Actualizar(T entidad);
-    Task Borrar(Guid id);
+    Task Borrar(T entidad);
 
 }

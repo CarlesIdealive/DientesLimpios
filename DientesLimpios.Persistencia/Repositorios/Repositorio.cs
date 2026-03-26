@@ -24,9 +24,9 @@ public class Repositorio<T> : IRepositorio<T> where T : class
         return Task.FromResult(entidad);
     }
 
-    public Task Borrar(Guid id)
+    public Task Borrar(T entidad)
     {
-        context.Remove(id);
+        context.Remove(entidad);
         return Task.CompletedTask;
     }
 
