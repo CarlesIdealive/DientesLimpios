@@ -24,4 +24,9 @@ public class Paciente : EntidadAuditable
         Email = new Email(email);
     }
 
+    //Constructor necesario para Entity Framework
+    private Paciente()
+    {
+    }
+
 }

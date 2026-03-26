@@ -14,6 +14,8 @@ public static class RegistroDeServiciosDePersistencia
             options.UseSqlServer("name=DientesLimpiosConnectionString"));
 
         servicios.AddScoped<IRepositorioConsultorios, RepositorioConsultorios>();
+        servicios.AddScoped<IRepositorioPacientes, RepositorioPacientes>();
+
         servicios.AddScoped<IUnidadDeTrabajo, UnidadesDeTrabajo.UnidadDeTrabajoEFCore>();
 
 
