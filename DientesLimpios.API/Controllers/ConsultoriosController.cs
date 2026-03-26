@@ -26,6 +26,16 @@ public class ConsultoriosController : ControllerBase
         return Ok(resultado);
     }
 
+
+    [HttpGet]
+    public async Task<ActionResult<List<ConsultorioDetalleDTO>>> ObtenerConsultorios()
+    {
+        // Aquí iría la lógica para obtener la lista de consultorios
+        var resultado = await mediator.Send(new ConsultaObtenerDetalleConsultorio()); 
+        return Ok(resultado);
+    }
+
+
     [HttpGet("{id}")]
     public async Task<ActionResult<ConsultorioDetalleDTO>> ObtenerConsultorioPorId(Guid id)
     {
