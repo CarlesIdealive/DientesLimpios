@@ -1,4 +1,5 @@
 ﻿using DientesLimpios.API.DTOs.Consultorios;
+using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Comandos.ActualizarConsultorio;
 using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Comandos.CrearConsultorio;
 using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Consultas.ObtenerDetalleConsultorio;
 using DientesLimpios.Aplicacion.Utilidades.Mediador;
@@ -24,6 +25,15 @@ public class ConsultoriosController : ControllerBase
         var comando = new ComandoCrearConsultorio { Nombre = crearConsultorioDTO.Nombre };
         var resultado = await mediator.Send(comando);
         return Ok(resultado);
+    }
+
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> ActualizarConsultorio(Guid id, ActualizarConsultorioDTO actualizarConsultorioDTO)
+    {
+        var comando = new ComandoActualizarConsultorio { Nombre = actualizarConsultorioDTO.Nombre };
+        await mediator.Send(comando);
+        return Ok();
     }
 
 
