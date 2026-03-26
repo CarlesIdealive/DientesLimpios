@@ -1,16 +1,49 @@
-﻿using DientesLimpios.Dominio.Entidades;
+﻿using DientesLimpios.Aplicacion.Contratos.Identidad;
+using DientesLimpios.Dominio.Comunes;
+using DientesLimpios.Dominio.Entidades;
 using Microsoft.EntityFrameworkCore;
 
 namespace DientesLimpios.Persistencia;
 
 public class DientesLimpiosDbContext : DbContext
 {
+    private readonly IServicioUsuarios? servicioUsuarios;
+
     //Declarar el DbContextsOptions de esta forma permite tener multiples dbContext en el mismo proyecto,
     //cada uno con su propia configuración.
-    public DientesLimpiosDbContext(DbContextOptions<DientesLimpiosDbContext> options)
+    public DientesLimpiosDbContext(DbContextOptions<DientesLimpiosDbContext> options, IServicioUsuarios servicioUsuarios)
         : base(options)
     {
+        this.servicioUsuarios = servicioUsuarios;
     }
+
+    public DientesLimpiosDbContext()
+    {
+    }
+
+    // Override sobre SaveChanges para Auditar la accion
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        if (servicioUsuarios is not null)
+        {
+            foreach( var entry in ChangeTracker.Entries<EntidadAuditable>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.FechaCreacion = DateTime.UtcNow;
+                        entry.Entity.CreadoPor = servicioUsuarios.ObtenerUsuarioId(); 
+                        break;
+                    case EntityState.Modified:
+                        entry.Entity.UltimaFechaModificacion = DateTime.UtcNow;
+                        entry.Entity.UltimaModificacionPor = servicioUsuarios.ObtenerUsuarioId();
+                        break;
+                }
+            }
+        }
+        return base.SaveChangesAsync(cancellationToken);
+    }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
