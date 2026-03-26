@@ -6,6 +6,9 @@
 
 public interface IRequest<TResponse>
 {
-    
+}
 
+//El Caso de Uso no retorna ningun valor
+public interface IRequest
+{
 }

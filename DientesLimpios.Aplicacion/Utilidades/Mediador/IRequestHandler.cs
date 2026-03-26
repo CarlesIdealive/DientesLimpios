@@ -10,5 +10,14 @@ public interface IRequestHandler<TRequest, TResponse>
     // Maneja la solicitud y devuelve una respuesta asincrónica
     // Se utiliza en el caso de uso para procesar la solicitud
     Task<TResponse> Handle(TRequest request);
+}
 
+
+// Para casos de uso que No devuelve ningun valor
+public interface IRequestHandler<TRequest>
+    where TRequest : IRequest
+{
+    // Maneja la solicitud y devuelve una respuesta asincrónica
+    // Se utiliza en el caso de uso para procesar la solicitud
+    Task Handle(TRequest request);
 }
