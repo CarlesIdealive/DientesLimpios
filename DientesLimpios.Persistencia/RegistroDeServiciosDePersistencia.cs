@@ -15,6 +15,8 @@ public static class RegistroDeServiciosDePersistencia
 
         servicios.AddScoped<IRepositorioConsultorios, RepositorioConsultorios>();
         servicios.AddScoped<IRepositorioPacientes, RepositorioPacientes>();
+        servicios.AddScoped<IRepositorioDentistas, RepositorioDentistas>();
+
 
         servicios.AddScoped<IUnidadDeTrabajo, UnidadesDeTrabajo.UnidadDeTrabajoEFCore>();
 

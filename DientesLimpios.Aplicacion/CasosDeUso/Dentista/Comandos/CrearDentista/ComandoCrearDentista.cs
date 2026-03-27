@@ -1,8 +1,8 @@
 ﻿using DientesLimpios.Aplicacion.Utilidades.Mediador;
 
-namespace DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.CrearPaciente;
+namespace DientesLimpios.Aplicacion.CasosDeUso.Dentista.Comandos.CrearDentista;
 
-public class ComandoCrearPaciente : IRequest<Guid>
+public class ComandoCrearDentista : IRequest<Guid>
 {
     public required string Nombre { get; set; }
     public required string Email { get; set; }

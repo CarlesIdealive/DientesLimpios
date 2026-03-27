@@ -3,6 +3,7 @@ using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Comandos.BorrarConsultor
 using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Comandos.CrearConsultorio;
 using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Consultas.ObtenerDetalleConsultorio;
 using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Consultas.ObtenerListadoConsultorios;
+using DientesLimpios.Aplicacion.CasosDeUso.Dentista.Comandos.CrearDentista;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.ActualizarPaciente;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.BorrarPaciente;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.CrearPaciente;
@@ -33,6 +34,8 @@ public static class RegistroDeServiciosDeAplicacion
         servicios.AddScoped<IRequestHandler<ConsultaObtenerListadoPacientes, PaginadoDTO<PacienteListadoDTO>>, CasoDeUsoObtenerListadoPacientes>();
         servicios.AddScoped<IRequestHandler<ComandoBorrarPaciente>, CasoDeUsoBorrarPaciente>();
 
+        //Dentistas
+        servicios.AddScoped<IRequestHandler<ComandoCrearDentista, Guid>, CasoDeUsoCrearDentista>();
 
         return servicios;
     }
