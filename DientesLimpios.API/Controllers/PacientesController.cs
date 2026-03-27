@@ -1,9 +1,9 @@
 ﻿using DientesLimpios.API.DTOs.Pacientes;
 using DientesLimpios.API.Utilidades;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.CrearPaciente;
+using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Consultas.ObtenerDetallePaciente;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Consultas.ObtenerListadoPacientes;
 using DientesLimpios.Aplicacion.Utilidades.Mediador;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DientesLimpios.API.Controllers;
@@ -47,6 +47,13 @@ public class PacientesController : ControllerBase
         return Ok(resultado);
     }
 
-   
+    [HttpGet("{id}")]
+    public async Task<ActionResult<PacienteDetalleDTO>> ObtenerPacientePorId(Guid id)
+    {
+        var consulta = new ConsultaObtenerDetallePaciente { Id = id };
+        var resultado = await mediator.Send(consulta);
+        return Ok(resultado);
+    }
+
 
 }
