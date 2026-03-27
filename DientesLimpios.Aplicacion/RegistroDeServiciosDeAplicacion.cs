@@ -3,7 +3,11 @@ using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Comandos.BorrarConsultor
 using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Comandos.CrearConsultorio;
 using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Consultas.ObtenerDetalleConsultorio;
 using DientesLimpios.Aplicacion.CasosDeUso.Consultorios.Consultas.ObtenerListadoConsultorios;
+using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.ActualizarPaciente;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.CrearPaciente;
+using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Consultas.ObtenerDetallePaciente;
+using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Consultas.ObtenerListadoPacientes;
+using DientesLimpios.Aplicacion.Utilidades.Comunes;
 using DientesLimpios.Aplicacion.Utilidades.Mediador;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,8 +27,9 @@ public static class RegistroDeServiciosDeAplicacion
 
         //Pacientes
         servicios.AddScoped<IRequestHandler<ComandoCrearPaciente, Guid>, CasoDeUsoCrearPaciente>();
-
-
+        servicios.AddScoped<IRequestHandler<ComandoActualizarPaciente>, CasoDeUsoActualizarPaciente>();
+        servicios.AddScoped<IRequestHandler<ConsultaObtenerDetallePaciente, PacienteDetalleDTO>, CasoDeUsoObtenerDetallesPaciente>();
+        servicios.AddScoped<IRequestHandler<ConsultaObtenerListadoPacientes, PaginadoDTO<PacienteListadoDTO>>, CasoDeUsoObtenerListadoPacientes>();
 
 
 
