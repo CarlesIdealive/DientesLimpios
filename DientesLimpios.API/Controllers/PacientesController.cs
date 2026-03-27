@@ -1,5 +1,6 @@
 ﻿using DientesLimpios.API.DTOs.Pacientes;
 using DientesLimpios.API.Utilidades;
+using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.ActualizarPaciente;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.CrearPaciente;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Consultas.ObtenerDetallePaciente;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Consultas.ObtenerListadoPacientes;
@@ -55,5 +56,16 @@ public class PacientesController : ControllerBase
         return Ok(resultado);
     }
 
+    [HttpPut("{id}")]
+    public async Task<IActionResult> ActualizarPaciente(Guid id, [FromBody] CrearPacienteDTO actualizarPacienteDTO)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var comando = new ComandoActualizarPaciente { Id = id, Nombre = actualizarPacienteDTO.Nombre, Email = actualizarPacienteDTO.Email };
+        await mediator.Send(comando);
+        return Ok();
+    }
 
 }
