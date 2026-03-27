@@ -22,4 +22,11 @@ public class Dentista : EntidadAuditable
         Nombre = nombre;
         Email = new Email(email);
     }
+
+    private Dentista()
+    {
+        // Constructor privado para EF Core
+    }
+
+
 }
