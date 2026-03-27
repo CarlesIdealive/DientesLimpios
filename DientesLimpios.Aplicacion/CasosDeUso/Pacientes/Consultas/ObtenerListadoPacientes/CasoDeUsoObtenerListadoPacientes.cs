@@ -1,9 +1,10 @@
 ﻿using DientesLimpios.Aplicacion.Contratos.Repositorios;
+using DientesLimpios.Aplicacion.Utilidades.Comunes;
 using DientesLimpios.Aplicacion.Utilidades.Mediador;
 
 namespace DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Consultas.ObtenerListadoPacientes;
 
-public class CasoDeUsoObtenerListadoPacientes : IRequestHandler<ConsultaObtenerListadoPacientes, List<PacienteListadoDTO>>
+public class CasoDeUsoObtenerListadoPacientes : IRequestHandler<ConsultaObtenerListadoPacientes, PaginadoDTO<PacienteListadoDTO>>
 {
     private readonly IRepositorioPacientes repositorioPacientes;
 
@@ -12,10 +13,16 @@ public class CasoDeUsoObtenerListadoPacientes : IRequestHandler<ConsultaObtenerL
         this.repositorioPacientes = repositorioPacientes;
     }
 
-    public async Task<List<PacienteListadoDTO>> Handle(ConsultaObtenerListadoPacientes request)
+    public async Task<PaginadoDTO<PacienteListadoDTO>> Handle(ConsultaObtenerListadoPacientes request)
     {
-        var pacientes = await repositorioPacientes.ObtenerTodos();
-        return pacientes.Select(paciente => paciente.ADto()).ToList();
-
+        var pacientes = await repositorioPacientes.ObtenerFiltrado(request);
+        var totalPacientes = await repositorioPacientes.ObtenerCantidadTotalRegistros();
+        var pacientesDtos = pacientes.Select(paciente => paciente.ADto()).ToList();
+        var paginadoDTO = new PaginadoDTO<PacienteListadoDTO>
+        {
+            Elementos = pacientesDtos,
+            Total = totalPacientes,
+        };
+        return paginadoDTO;
     }
 }

@@ -1,10 +1,8 @@
-﻿using DientesLimpios.Aplicacion.Utilidades.Mediador;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DientesLimpios.Aplicacion.Utilidades.Comunes;
+using DientesLimpios.Aplicacion.Utilidades.Mediador;
 
 namespace DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Consultas.ObtenerListadoPacientes;
 
-public class ConsultaObtenerListadoPacientes : IRequest<List<PacienteListadoDTO>>
+public class ConsultaObtenerListadoPacientes : FiltroPacienteDTO, IRequest<PaginadoDTO<PacienteListadoDTO>>
 {
 }
