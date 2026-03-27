@@ -1,5 +1,5 @@
 @baseUrl = https://localhost:7115
-@consultoriosUrl = {{baseUrl}}/api/consultorios
+@pacientesUrl = {{baseUrl}}/api/pacientes
 
 # @name login
 POST {{baseUrl}}/login?useCookies=false
@@ -12,20 +12,23 @@ Content-Type: application/json
 
 ###
 
-GET {{DientesLimpios.API_HostAddress}}/019D29FF-F17F-7061-9F66-6CDD8106A363
+GET {{pacientesUrl}}/019D29FF-F17F-7061-9F66-6CDD8106A363
 Accept: application/json
+Authorization: Bearer {{login.response.body.$.accessToken}}
 
 ###
 
-GET {{DientesLimpios.API_HostAddress}}
+GET {{pacientesUrl}}
 Accept: application/json
+Authorization: Bearer {{login.response.body.$.accessToken}}
 
 ###
 
-POST {{consultoriosUrl}}
+POST {{pacientesUrl}}
 Content-Type: application/json
 Authorization: Bearer {{login.response.body.$.accessToken}}
 
 {
-  "nombre": "Consultorio Central"
+  "nombre": "Paciente 1",
+  "email": "paciente1@example.com"
 }

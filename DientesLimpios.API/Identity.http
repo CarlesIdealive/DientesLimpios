@@ -13,7 +13,7 @@ POST {{DientesLimpios.API_HostAddress}}/login
 Content-Type: application/json
 
 {
-  "email": "carles@ejemplo.com",
+  "email": "carles2@ejemplo.com",
   "password" : "aA123456!"
 }
 ###
