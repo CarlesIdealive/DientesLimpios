@@ -30,6 +30,11 @@ public class Repositorio<T> : IRepositorio<T> where T : class
         return Task.CompletedTask;
     }
 
+    public async Task<int> ObtenerCantidadTotalRegistros()
+    {
+        return await context.Set<T>().CountAsync();
+    }
+
     public async Task<T?> ObtenerPorId(Guid id)
     {
         var entidad = await context.FindAsync<T>(id);
