@@ -1,4 +1,5 @@
 ﻿using DientesLimpios.API.DTOs.Pacientes;
+using DientesLimpios.API.Utilidades;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.CrearPaciente;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Consultas.ObtenerListadoPacientes;
 using DientesLimpios.Aplicacion.Utilidades.Mediador;
@@ -37,14 +38,15 @@ public class PacientesController : ControllerBase
 
 
     [HttpGet]
-    public async Task<ActionResult<List<PacienteListadoDTO>>> ObtenerPacientes()
+    public async Task<ActionResult<List<PacienteListadoDTO>>> ObtenerPacientes(
+        [FromQuery] ConsultaObtenerListadoPacientes consulta)
     {
         // Aquí podrías implementar la lógica para obtener la lista de pacientes
-        var consulta = new ConsultaObtenerListadoPacientes();
         var resultado = await mediator.Send(consulta);
+        HttpContext.InsertarPaginacionEnHeader(resultado.Total);
         return Ok(resultado);
     }
 
-
+   
 
 }
