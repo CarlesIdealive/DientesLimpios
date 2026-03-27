@@ -1,6 +1,7 @@
 ﻿using DientesLimpios.API.DTOs.Pacientes;
 using DientesLimpios.API.Utilidades;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.ActualizarPaciente;
+using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.BorrarPaciente;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Comandos.CrearPaciente;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Consultas.ObtenerDetallePaciente;
 using DientesLimpios.Aplicacion.CasosDeUso.Pacientes.Consultas.ObtenerListadoPacientes;
@@ -67,5 +68,14 @@ public class PacientesController : ControllerBase
         await mediator.Send(comando);
         return Ok();
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> BorrarPaciente(Guid id)
+    {
+        var comando = new ComandoBorrarPaciente { Id = id };
+        await mediator.Send(comando);
+        return Ok();
+    }
+
 
 }
