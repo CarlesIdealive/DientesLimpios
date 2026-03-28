@@ -1,5 +1,6 @@
 ﻿using DientesLimpios.Dominio.Entidades;
 using DientesLimpios.Dominio.Enums;
+using DientesLimpios.Dominio.Excepciones;
 using DientesLimpios.Dominio.ObjetosDeValor;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,27 @@ public class CitaTests
         Assert.AreEqual(_intervaloDeTiempo, cita.IntervaloDeTiempo);
         Assert.AreEqual(EstadoCita.Programada, cita.EstadoCita);
         Assert.AreNotEqual(Guid.Empty, cita.Id);
+    }
+
+    [TestMethod]
+    public void Constructor_PacienteIdVacio_LanzaExcepcion()
+    {
+        Assert.ThrowsExactly<ExcepcionReglaDeNegocio>(() =>
+            new Cita(Guid.Empty, _dentistaId, _consultorioId, _intervaloDeTiempo));
+    }
+
+    [TestMethod]
+    public void Constructor_DentistaIdVacio_LanzaExcepcion()
+    {
+        Assert.ThrowsExactly<ExcepcionReglaDeNegocio>(() =>
+            new Cita(_pacienteId, Guid.Empty, _consultorioId, _intervaloDeTiempo));
+    }
+
+    [TestMethod]
+    public void Constructor_ConsultorioIdVacio_LanzaExcepcion()
+    {
+        Assert.ThrowsExactly<ExcepcionReglaDeNegocio>(() =>
+            new Cita(_pacienteId, _dentistaId, Guid.Empty, _intervaloDeTiempo));
     }
 
 

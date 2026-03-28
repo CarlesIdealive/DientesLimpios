@@ -2,6 +2,7 @@
 using DientesLimpios.Dominio.Enums;
 using DientesLimpios.Dominio.Excepciones;
 using DientesLimpios.Dominio.ObjetosDeValor;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DientesLimpios.Dominio.Entidades;
 
@@ -25,6 +26,10 @@ public class Cita : EntidadAuditable
 
     public Cita(Guid pacienteId, Guid dentistaId, Guid consultorioId, IntervaloDeTiempo intervaloDeTiempo)
     {
+        AplicarReglasDeNegocioPaciente(pacienteId);
+        AplicarReglasDeNegocioDentista(dentistaId);
+        AplicarReglasDeNegocioConsultorio(consultorioId);
+
         if (intervaloDeTiempo.Inicio < DateTime.UtcNow)
         {
             throw new ArgumentException("La fecha de inicio no puede ser en el pasado.");
@@ -35,6 +40,7 @@ public class Cita : EntidadAuditable
         DentistaId = dentistaId;
         ConsultorioId = consultorioId;
         IntervaloDeTiempo = intervaloDeTiempo;
+        EstadoCita = EstadoCita.Programada;
     }
 
 
@@ -54,6 +60,60 @@ public class Cita : EntidadAuditable
             throw new ExcepcionReglaDeNegocio("Solo se pueden completar citas programadas");
         }
         EstadoCita = EstadoCita.Completada;
+    }
+
+
+    //Metodo para actualizar el Nombre del paciente
+    public void ActualizarConsultorio(Guid nuevoConsultorio)
+    {
+        AplicarReglasDeNegocioConsultorio(nuevoConsultorio);
+        ConsultorioId = nuevoConsultorio;
+    }
+    public void ActualizarPaciente(Guid nuevoPaciente)
+    {
+        AplicarReglasDeNegocioPaciente(nuevoPaciente);
+        PacienteId = nuevoPaciente;
+    }
+
+    public void ActualizarDentista(Guid nuevoDentista)
+    {
+        AplicarReglasDeNegocioDentista(nuevoDentista);
+        DentistaId = nuevoDentista;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    private void AplicarReglasDeNegocioPaciente(Guid idPaciente)
+    {
+        if (idPaciente == Guid.Empty)
+        {
+            throw new ExcepcionReglaDeNegocio("El Id del paciente no puede estar vacío.");
+        }
+    }
+
+    private void AplicarReglasDeNegocioDentista(Guid idDentista)
+    {
+        if (idDentista == Guid.Empty)
+        {
+            throw new ExcepcionReglaDeNegocio("El Id del dentista no puede estar vacío.");
+        }
+    }
+
+    private void AplicarReglasDeNegocioConsultorio(Guid idConsultorio)
+    {
+        if (idConsultorio == Guid.Empty)
+        {
+            throw new ExcepcionReglaDeNegocio("El Id del consultorio no puede estar vacío.");
+        }
     }
 
 

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CasosDeUso\Citas\Consultas\" />
     <Folder Include="CasosDeUso\Dentista\Comandos\ActualizarDentista\" />
     <Folder Include="CasosDeUso\Dentista\Comandos\BorrarDentista\" />
   </ItemGroup>

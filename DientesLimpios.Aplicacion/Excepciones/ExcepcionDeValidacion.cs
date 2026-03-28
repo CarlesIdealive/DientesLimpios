@@ -6,6 +6,11 @@ public class ExcepcionDeValidacion : Exception
 {
     public List<string> ErroresDeValidacion { get; set; } = [];
 
+    public ExcepcionDeValidacion(string mensaje)
+    {
+        ErroresDeValidacion.Add(mensaje);
+    }
+
     public ExcepcionDeValidacion(ValidationResult validationResult)
     {
         foreach (var item in validationResult.Errors)
