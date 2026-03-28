@@ -18,6 +18,11 @@ public class Cita : EntidadAuditable
     public Consultorio? Consultorio { get; private set; }
 
 
+
+    private Cita()
+    {
+    }
+
     public Cita(Guid pacienteId, Guid dentistaId, Guid consultorioId, IntervaloDeTiempo intervaloDeTiempo)
     {
         if (intervaloDeTiempo.Inicio < DateTime.UtcNow)
