@@ -2,7 +2,6 @@
 using DientesLimpios.Dominio.Enums;
 using DientesLimpios.Dominio.Excepciones;
 using DientesLimpios.Dominio.ObjetosDeValor;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DientesLimpios.Dominio.Entidades;
 

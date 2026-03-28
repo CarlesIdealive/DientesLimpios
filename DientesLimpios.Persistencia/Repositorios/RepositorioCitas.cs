@@ -23,4 +23,16 @@ public class RepositorioCitas : Repositorio<Cita>, IRepositorioCitas
             .AnyAsync();
 
     }
+
+    new public async Task<Cita?> ObtenerPorId(Guid Id)
+    {
+        return await context.Citas
+            .Include(c => c.Paciente)
+            .Include(c => c.Dentista)
+            .Include(c => c.Consultorio)
+            .FirstOrDefaultAsync(c => c.Id == Id);
+    }
+
+
+
 }
