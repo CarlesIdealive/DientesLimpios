@@ -2,6 +2,7 @@ using DientesLimpios.API.Middlewares;
 using DientesLimpios.Aplicacion;
 using DientesLimpios.Identidad;
 using DientesLimpios.Identidad.Modelos;
+using DientesLimpios.Infraestructura;
 using DientesLimpios.Persistencia;
 using Microsoft.AspNetCore.Mvc.Authorization;
 
@@ -23,7 +24,7 @@ builder.Services.AddOpenApi();
 // Agregamos los servicios de la aplicación y la persistencia
 builder.Services.AgregarServiciosDeAplicacion();
 builder.Services.AgregarServiciosDePersistencia();
-
+builder.Services.AgregarServiciosDeInfraestructura();
 builder.Services.AgregarServiciosDeIdentidad();
 
 
