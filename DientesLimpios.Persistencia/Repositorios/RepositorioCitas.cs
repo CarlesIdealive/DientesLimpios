@@ -1,5 +1,5 @@
-﻿using DientesLimpios.Aplicacion.CasosDeUso.Citas.Consultas.ObtenerListadoCitas;
-using DientesLimpios.Aplicacion.Contratos.Repositorios;
+﻿using DientesLimpios.Aplicacion.Contratos.Repositorios;
+using DientesLimpios.Aplicacion.Contratos.Repositorios.Modelos;
 using DientesLimpios.Dominio.Entidades;
 using DientesLimpios.Persistencia.Utilidades;
 using Microsoft.EntityFrameworkCore;
@@ -40,8 +40,12 @@ public class RepositorioCitas : Repositorio<Cita>, IRepositorioCitas
             queryable = queryable.Where(p => p.PacienteId == filtro.PacienteId);
         if (filtro.DentistaId is not null)
             queryable = queryable.Where(p => p.DentistaId == filtro.DentistaId);
+        if (filtro.EstadoCita is not null)
+            queryable = queryable.Where(p => p.EstadoCita == filtro.EstadoCita);
         queryable = queryable.Where(p => 
             p.IntervaloDeTiempo.Inicio >= filtro.FechaInicio && p.IntervaloDeTiempo.Fin <= filtro.FechaFin);
+
+
 
         //var totalPacientes = await ObtenerCantidadTotalRegistros();
         var dentistas = await queryable

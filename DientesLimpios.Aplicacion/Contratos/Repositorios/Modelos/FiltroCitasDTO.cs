@@ -1,4 +1,6 @@
-﻿namespace DientesLimpios.Aplicacion.CasosDeUso.Citas.Consultas.ObtenerListadoCitas;
+﻿using DientesLimpios.Dominio.Enums;
+
+namespace DientesLimpios.Aplicacion.Contratos.Repositorios.Modelos;
 
 public class FiltroCitasDTO
 {
@@ -9,5 +11,7 @@ public class FiltroCitasDTO
     public Guid? DentistaId { get; set; }
     public DateTime FechaInicio { get; set; }
     public DateTime FechaFin { get; set; }
+    public EstadoCita? EstadoCita { get; set; }
+
 
 }

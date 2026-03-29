@@ -26,6 +26,28 @@ public class ServicioCorreo : IServicioNotificaciones
     }
 
 
+    public async Task EnviarRecordatorioCita(RecordatorioCitaDTO recordatorioCita)
+    {
+        var asunto = "REcordatorio de cita - Dientes Limpios";
+        var cuerpo = $"Hola {recordatorioCita.Paciente},\n\n" +
+                     $"Te recordamos que tienes una cita con el dentista {recordatorioCita.Dentista} en el consultorio {recordatorioCita.Consultorio} programada para el día {recordatorioCita.Fecha:dd/MM/yyyy} a las {recordatorioCita.Fecha:HH:mm}.\n\n" +
+                     "¡Gracias por elegir Dientes Limpios!";
+
+        await EnviarMensaje(recordatorioCita.Paciente_Email, asunto, cuerpo);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
