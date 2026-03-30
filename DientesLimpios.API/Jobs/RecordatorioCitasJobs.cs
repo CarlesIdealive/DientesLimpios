@@ -18,19 +18,45 @@ namespace DientesLimpios.API.Jobs
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
 
-            while (stoppingToken.IsCancellationRequested)
+            while (!stoppingToken.IsCancellationRequested)
             {
-                var ahora = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, zon);
-                if (ahora.Hour == 9 && ahora.Minute == 0)
+                try
                 {
-                    using var scope = scopeFactory.CreateScope();
-                    var mediador = scope.ServiceProvider.GetRequiredService<IMediator>();
-                    await mediador.Send(new ComandoEnviarRecordatorioCitas());
+                    var ahora = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, zon);
+                    if (ahora.Hour == 9 && ahora.Minute == 0)
+                    {
+                        using var scope = scopeFactory.CreateScope();
+                        var mediador = scope.ServiceProvider.GetRequiredService<IMediator>();
+                        await mediador.Send(new ComandoEnviarRecordatorioCitas());
+                    }
+                    await Task.Delay(TimeSpan.FromHours(1), stoppingToken);
                 }
-                await Task.Delay(TimeSpan.FromHours(1), stoppingToken);
+                catch (TaskCanceledException)
+                {
+                    //Logger.LogInformation("RecordatorioCitasJobs se ha cancelado.");
+                    break;
+                }
+
+
+                //OPCION 2: CON TIMER
+                //var timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
+
+                //while (await timer.WaitForNextTickAsync(stoppingToken))
+                //{
+                //    _logger.LogInformation("Procesando...");
+                //    await _repo.ProcesarPedidosPendientesAsync(stoppingToken);
+                //}
+
+
             }
 
+
+
+
+
         }
+
+    }
 
 
 
